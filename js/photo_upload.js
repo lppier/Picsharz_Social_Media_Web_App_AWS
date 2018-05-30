@@ -19,7 +19,7 @@ $(function () {
         })
         .catch(function (error) {
             console.log("Not authenticated");
-            alert("Error in logic, not authenticated!");
+            //alert("Error in logic, not authenticated!");
             return;
         })
 
