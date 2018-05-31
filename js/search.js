@@ -99,7 +99,7 @@ function performSearch() {
                                         + '<div class="card">'
                                         + '<div class="card-image">'
                                         + '<img src="img/avatars/' + avatar_file_name + '.png">'
-                                        + '<span class="card-title">' + user_full_name + '</span>'
+                                        //+ '<span class="card-title">' + user_full_name + '</span>'
                                         + '<a href="user_details.html?id=' + user_id + '" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>'
                                         + '</div>'
                                         + '<div class="card-content">'

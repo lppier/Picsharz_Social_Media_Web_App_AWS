@@ -45,7 +45,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">PICSHARZ</a>
+        <a class="navbar-brand js-scroll-trigger" href="./index.html">PICSHARZ</a>
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button"
                 data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -54,12 +54,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <button id="photoUploader" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-photo-modal" style="display:none;">
-                    UPLOAD
-                </button>
-                <!--<li class="nav-item mx-0 mx-lg-1">-->
-                    <!--<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Signup</a>-->
-                <!--</li>-->
+                
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a id="photoUploader" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" data-toggle="modal" data-target="#add-photo-modal" style="display:none;">Upload</a>
+                </li>
+                
+                
                 <div id="loginSwitch">
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="login.html">Login</a>
@@ -100,7 +100,7 @@
         <div id="search">
     <button type="button" class="close">×</button>
     <form>
-        <input type="search" value="" placeholder="type keywords here" id="search_text" autocomplete="off"/>
+        <input type="search" value="" placeholder="type keywords here" id="search_text" autocomplete="off"  style="padding:20px"/>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 </div>
@@ -126,7 +126,16 @@
             </div>
             
             
-  
+            <div class="col-md-6 col-lg-4">
+                <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
+                    <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                        <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                            <i class="fa fa-search-plus fa-3x"></i>
+                        </div>
+                    </div>
+                    <img class="img-fluid" src="img/portfolio/cake.png" alt="">
+                </a>
+            </div>
         </div>
         <h3 id="feedLoading" style="display:none;">Loading your feed...</h3>
         <div class="row" id="userFeed" style="display:none;">
