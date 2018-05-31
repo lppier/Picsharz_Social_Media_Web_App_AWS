@@ -84,7 +84,7 @@ $(function () {
                     for (var i = 0; i < feed_results.length; i++) {
                         feed_image = feed_results[i];
                         image_id = feed_image["id"];
-                        image_url_thumb = feed_image["presigned_url_thumb"];
+                        image_url_thumb = feed_image["url_thumb"];
                         image_title = feed_image["title"];
                         image_uploaded_by = feed_image["upload_user"];
 

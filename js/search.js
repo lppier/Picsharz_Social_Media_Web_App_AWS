@@ -122,7 +122,7 @@ function performSearch() {
                                 }
 
                                 image_result_id = source["id"]["S"];
-                                image_result_url_thumb = source["presigned_url_thumb"] ? source["presigned_url_thumb"]["S"] : "";
+                                image_result_url_thumb = source["url_thumb"] ? source["url_thumb"]["S"] : "";
                                 image_html = '<a href="image_details.html?id=' + image_result_id + '"><img class="img-fluid" src="' + image_result_url_thumb + '" alt="" height=""></a>';
                                 $("#staticImages").append(image_html);
                                 console.log("Added image");

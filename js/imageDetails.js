@@ -82,7 +82,7 @@ function getImageDetails() {
                     if (first_item) {
 
                         img_result_title = first_item["title"] ? first_item["title"]["S"] : "";
-                        img_result_url_main = first_item["presigned_url_main"] ? first_item["presigned_url_main"]["S"] : "";
+                        img_result_url_main = first_item["url_main"] ? first_item["url_main"]["S"] : "";
                         img_result_upload_user = first_item["upload_user"] ? first_item["upload_user"]["S"] : "";
                         img_result_description = first_item["description"] ? first_item["description"]["S"] : "";
                         img_result_tags = first_item["tags"] ? first_item["tags"]["L"] : "";
