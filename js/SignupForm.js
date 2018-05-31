@@ -46,12 +46,18 @@
         var $inputs = $container.getElementsByTagName('input'),
             attributes;
         event.preventDefault()
+
+
+        var yourDate = new Date($inputs.dob.value);
+        yourDate = yourDate.toISOString().split('T')[0];
+
         if ($inputs.password.value !== $inputs.repeatPassword.value) {
             console.log('Passwords do not match!')
             return;
         }
         startLoading()
-        Cognito.signUp($inputs.userid.value, $inputs.email.value, $inputs.password.value, $inputs.about.value, $inputs.country.value, $inputs.dob.value, $inputs.gender.value)
+
+        Cognito.signUp($inputs.userid.value, $inputs.email.value, $inputs.password.value, $inputs.about.value, $inputs.country.value, yourDate, $inputs.gender.value)
             .then(function (result) {
                 stopLoading()
                 addAlert({
