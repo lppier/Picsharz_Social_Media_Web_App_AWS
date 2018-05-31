@@ -34,7 +34,7 @@ $(function () {
     });
 
     $('#cancelphoto').on('click', function () {
-        pageReloadOnUploadSuccess();
+        //pageReloadOnUploadSuccess();
     });
 
     $('#add-photo-modal').on("hidden.bs.modal", function () {
