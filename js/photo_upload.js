@@ -2,8 +2,8 @@ $(function () {
 
     var bucketName = 'team30ws-mediarepofinal';
     //var bucketName = 'team30ws-mediarepo';
-    // var bucketRegion = 'us-east-1';
-    // var IdentityPoolId = 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc';
+    var bucketRegion = 'us-east-1';
+    var IdentityPoolId = 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc';
 
 
     // AWS.config.update({
@@ -13,15 +13,14 @@ $(function () {
     //     })
     // });
 
-    // Cognito.isAuthenticated()
-    //     .then(function() {
-    //         console.log("Authenticated");
-    //     })
-    //     .catch(function(error) {
-    //         console.log("Not authenticated");
-    //         alert("Error in logic, not authenticated!");
-    //         return;
-    //     })
+    Cognito.isAuthenticated()
+        .then(function() {
+            console.log("Authenticated");
+        })
+        .catch(function(error) {
+            console.log("Not authenticated");
+            return;
+        })
 
     var s3 = new AWS.S3({
         apiVersion: '2006-03-01',
