@@ -13,14 +13,14 @@ $(function () {
     //     })
     // });
 
-    // Cognito.isAuthenticated()
-    //     .then(function() {
-    //         console.log("Authenticated");
-    //     })
-    //     .catch(function(error) {
-    //         console.log("Not authenticated");
-    //         return;
-    //     })
+    Cognito.isAuthenticated()
+        .then(function() {
+            console.log("Authenticated");
+        })
+        .catch(function(error) {
+            console.log("Not authenticated");
+            return;
+        })
 
     var s3 = new AWS.S3({
         apiVersion: '2006-03-01',

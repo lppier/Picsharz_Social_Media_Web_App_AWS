@@ -2,12 +2,12 @@ var bucketName = 'team30ws-mediarepofinalresized';
 var bucketRegion = 'us-east-1';
 var IdentityPoolId = 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc';
 
-// AWS.config.update({
-//     region: bucketRegion,
-//     credentials: new AWS.CognitoIdentityCredentials({
-//         IdentityPoolId: IdentityPoolId
-//     })
-// });
+AWS.config.update({
+    region: bucketRegion,
+    credentials: new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: IdentityPoolId
+    })
+});
 
 var s3 = new AWS.S3({
     apiVersion: '2006-03-01',
