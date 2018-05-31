@@ -13,15 +13,15 @@ $(function () {
     //     })
     // });
 
-    Cognito.isAuthenticated()
-        .then(function () {
-            console.log("Authenticated");
-        })
-        .catch(function (error) {
-            console.log("Not authenticated");
-            //alert("Error in logic, not authenticated!");
-            return;
-        })
+    // Cognito.isAuthenticated()
+    //     .then(function() {
+    //         console.log("Authenticated");
+    //     })
+    //     .catch(function(error) {
+    //         console.log("Not authenticated");
+    //         alert("Error in logic, not authenticated!");
+    //         return;
+    //     })
 
     var s3 = new AWS.S3({
         apiVersion: '2006-03-01',
@@ -34,11 +34,7 @@ $(function () {
     });
 
     $('#cancelphoto').on('click', function () {
-        // setTimeout(function () {
-        //     pageReloadOnUploadSuccess();
-        // }, 2000);
-        // console.log("reloaded");
-
+        pageReloadOnUploadSuccess();
     });
 
     $('#add-photo-modal').on("hidden.bs.modal", function () {
@@ -121,7 +117,7 @@ $(function () {
         //var albumPhotosKey = encodeURIComponent(albumName) + '/';
 
         var datetime_hash = $.now();
-        fileName = fileName.replace(/ /g, "_");
+        fileName = fileName.replace(/ /g,"_");
         console.log(fileName);
         var photoKey = datetime_hash + "_" + fileName; //albumPhotosKey + fileName;
         console.log(photoKey);
@@ -152,9 +148,10 @@ $(function () {
         });
     }
 
-    function pageReloadOnUploadSuccess() {
+    function pageReloadOnUploadSuccess()
+    {
         var buttonText = $('#cancelphoto').text();
-        if (buttonText && buttonText == "OK") {
+        if(buttonText && buttonText == "OK"){
             window.location.reload(true);
         }
     }
