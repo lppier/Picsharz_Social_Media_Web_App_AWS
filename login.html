@@ -12,6 +12,8 @@
     <link rel="stylesheet" media="all" href="css/Well.css">
 </head>
 <body>
+
+
 <!-- Templates -->
 <script type="text/html" id="LoginForm">
     <div class="LoginForm">
@@ -32,6 +34,7 @@
         </form>
     </div>
 </script>
+
 <script type="text/html" id="SignupForm">
     <div class="SignupForm">
         <div class="title">Sign Up</div>
@@ -41,12 +44,16 @@
                 <input class="Control__input" name="userid" type="text" placeholder="Userid"/>
             </div>
             <div class="Control">
-                <label class="Control__label" for="about">Something about yourself</label>
-                <input class="Control__input" name="about" type="text" placeholder="Something interesting.."/>
+                <label class="Control__label" for="gender">Gender</label>
+                <div align="center">
+                    <br>
+                    <input name="gender" type="radio" value="male" checked/>Male
+                    <input name="gender" type="radio" value="female"/>Female<br><br>
+                </div>
             </div>
             <div class="Control">
-                <label class="Control__label" for="gender">Gender</label>
-                <input class="Control__input" name="gender" type="text" placeholder="male/female"/>
+                <label class="Control__label" for="about">Something about yourself</label>
+                <input class="Control__input" name="about" type="text" placeholder="Something interesting.."/>
             </div>
             <div class="Control">
                 <label class="Control__label" for="country">Country</label>
@@ -70,12 +77,14 @@
                 </label>
                 <input class="Control__input" name="repeatPassword" type="password" placeholder="Repeat Password"/>
             </div>
+
             <input class="Control__input" type="submit" value="Sign me up!"/>
             <a class="Control__link" href="#login">
                 Send me back to the login page.
             </a>
         </form>
     </div>
+
 </script>
 <script type="text/html" id="Alert">
     <div class="Alert Alert__<%= type %>">
@@ -111,6 +120,7 @@
 <!-- Root component -->
 <div id="root"></div>
 <!-- Scripts -->
+<script src="vendor/jquery/jquery.min.js"></script>
 <script src="js/lib/aws-cognito-sdk.min.js"></script>
 <script src="js/lib/amazon-cognito-identity.min.js"></script>
 <!--<script src="js/config.js"></script>-->
