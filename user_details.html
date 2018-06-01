@@ -15,7 +15,8 @@
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
 
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
@@ -23,92 +24,104 @@
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
     <script src="js/userDetails.js"></script>
+
+
 </head>
 
 <body id="page-top" onload="getUserDetails()">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="./index.html">PICSHARZ</a>
-            <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fa fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <div id="logoutSwitch">
-                        <li class="nav-item mx-0 mx-lg-1">
-                            <a id="logoutA" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Log Out</a>
-                        </li>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Portfolio Grid Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <!-- <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2> -->
-            <hr class="star-dark mb-5">
-            <div class="row" id="row">
-
-
-
-            </div>
-            <div class="row" id="specialadd">
-            </div>
-        </div>
-    </section>
-
-   
-
-    <div class="container" id="usersection">
-
-        <h1 id="name"></h1>
-        <input id="clickfollow" name="followButton" type="button" onclick="followUnfollowUser();" />
-        <p id="last_login_time"></p>
-        <h2> About: </h2>
-        <p id="about"></p>
-        <p id="country"></p>
-        <p id="account_created_time"></p>
-        <p id="other_info"></p>
+<header class="masthead bg-primary text-white text-center">
+    <div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="img/mj.jpg" alt="">
+        <h1 class="text-uppercase mb-0" id="name"></h1>
+        <hr class="star-light">
+        <h2 class="font-weight-light mb-0" id="about"></h2>
+        <hr class="star-light">
+        <button id="followme" type="button" class="btn btn-xl btn-outline-light" onclick="followUnfollowUser()">FOLLOW</button>
     </div>
-
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-to-top d-lg-none position-fixed ">
-        <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
+</header>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="./index.html">PICSHARZ</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button"
+                data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <div id="logoutSwitch">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a id="logoutA" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Log Out</a>
+                    </li>
+                </div>
+            </ul>
+        </div>
     </div>
+</nav>
+
+<!-- Portfolio Grid Section -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <!-- <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2> -->
+        <hr class="star-dark mb-5">
+        <div class="row" id="row">
 
 
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="js/freelancer.min.js"></script>
+        </div>
+        <div class="row" id="specialadd">
+        </div>
+    </div>
+</section>
 
 
-    <!-- Authentication -->
-    <script src="js/lib/aws-cognito-sdk.min.js"></script>
-    <script src="js/lib/amazon-cognito-identity.min.js"></script>
-    <script src="js/Cognito.js"></script>
-    <!-- <script src="js/login_switcher.js"></script> -->
-    <!-- AWS SDK -->
-    <script src="js/lib/aws-sdk.js"></script>
+<div class="container" id="usersection">
+
+    <!--<h1 id="name"></h1>-->
+
+    <p id="last_login_time"></p>
+    <h2> About: </h2>
+    <p id="country"></p>
+    <p id="dob"></p>
+    <!--<p id="about"></p>-->
+    <!--<p id="country"></p>-->
+    <p id="account_created_time"></p>
+    <p id="other_info"></p>
+</div>
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-to-top d-lg-none position-fixed ">
+    <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+    </a>
+</div>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/freelancer.min.js"></script>
+
+
+<!-- Authentication -->
+<script src="js/lib/aws-cognito-sdk.min.js"></script>
+<script src="js/lib/amazon-cognito-identity.min.js"></script>
+<script src="js/Cognito.js"></script>
+<!-- <script src="js/login_switcher.js"></script> -->
+<!-- AWS SDK -->
+<script src="js/lib/aws-sdk.js"></script>
 
 
 </body>

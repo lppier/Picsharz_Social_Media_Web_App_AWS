@@ -58,6 +58,7 @@ function getUserDetails() {
                     document.getElementById("name").innerHTML = user_result_username;
                     document.getElementById("about").innerHTML = user_result_about;
                     document.getElementById("country").innerHTML = user_result_country;
+                    document.getElementById("dob").innerHTML = user_result_dob;
                     document.getElementById("account_created_time").innerHTML = user_result_account_created_time;
                     other_details_html = showListOfItems(user_result_likes, "Likes", "image_details.html?id=");
                     other_details_html += showListOfItems(user_result_following, user_result_username + " is following", "user_details.html?id=");
