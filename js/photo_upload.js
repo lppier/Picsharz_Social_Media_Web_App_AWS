@@ -6,12 +6,12 @@ $(function () {
     var IdentityPoolId = 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc';
 
 
-    // AWS.config.update({
-    //     region: bucketRegion,
-    //     credentials: new AWS.CognitoIdentityCredentials({
-    //         IdentityPoolId: IdentityPoolId
-    //     })
-    // });
+    AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: IdentityPoolId
+        })
+    });
 
     // Cognito.isAuthenticated()
     //     .then(function() {
@@ -21,33 +21,37 @@ $(function () {
     //         console.log("Not authenticated");
     //         return;
     //     })
-    var userPool = Cognito.getUserPool();
-    var cognitoUser = userPool.getCurrentUser();
-    var s3;
-
-    if (cognitoUser != null) {
-        cognitoUser.getSession(function (err, session) {
-            if (err) {
-                alert(err);
-                return;
-            }
-            console.log('session validity: ' + session.isValid());
-
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc',
-                Logins: {
-                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_SDBkZhuhS': session.getIdToken().getJwtToken()
-                }
-            });
-
-            // Instantiate aws sdk service objects now that the credentials have been updated.
-            s3 = new AWS.S3({
-                apiVersion: '2006-03-01',
-                params: {Bucket: bucketName}
-            });
-
-        });
-    }
+    // var userPool = Cognito.getUserPool();
+    // var cognitoUser = userPool.getCurrentUser();
+    // var s3;
+    //
+    // if (cognitoUser != null) {
+    //     cognitoUser.getSession(function (err, session) {
+    //         if (err) {
+    //             alert(err);
+    //             return;
+    //         }
+    //         console.log('session validity: ' + session.isValid());
+    //         AWS.config.region = bucketRegion;
+    //         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    //             IdentityPoolId: IdentityPoolId,
+    //             Logins: {
+    //                 'cognito-idp.us-east-1.amazonaws.com/us-east-1_SDBkZhuhS': session.getIdToken().getJwtToken()
+    //             }
+    //         });
+    //
+    //         // Instantiate aws sdk service objects now that the credentials have been updated.
+    //         s3 = new AWS.S3({
+    //             apiVersion: '2006-03-01',
+    //             params: {Bucket: bucketName}
+    //         });
+    //
+    //     });
+    // }
+    s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {Bucket: bucketName}
+    });
 
 
     $('#addphoto').on('click', function () {
@@ -56,7 +60,7 @@ $(function () {
     });
 
     $('#cancelphoto').on('click', function () {
-        //pageReloadOnUploadSuccess();
+        pageReloadOnUploadSuccess();
     });
 
     $('#add-photo-modal').on("hidden.bs.modal", function () {
