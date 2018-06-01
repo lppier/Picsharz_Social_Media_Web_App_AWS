@@ -32,9 +32,9 @@ function showListOfItems(item_list, header_text, link_text) {
 function displayProfileId(userId) {
     var Accesstoken = sessionStorage.getItem('AccessToken');
     if (userId) {
-        console.log("UserId: " + userId);
+       // console.log("UserId: " + userId);
         request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
-        console.log("url" + request_url)
+       // console.log("url" + request_url)
         $.ajax({
             url: request_url,
             type: 'GET',
@@ -43,13 +43,13 @@ function displayProfileId(userId) {
             },
             success: function (data) {
                 $("#feedLoading").html("Your feed...")
-                console.log(data);
+                //console.log(data);
                 feed_results = data;
                 // alert('Number of feed images: ' + feed_results.length);
                 if (feed_results.length > 0) {
                     feed_image = feed_results[feed_results.length-1];
                     image_url_thumb = feed_image["url_thumb"];
-                    console.log(image_url_thumb);
+                    //console.log(image_url_thumb);
                     //$("#profilePic").html("<img class=\"img-fluid mb-5 d-block mx-auto\" src='\" + image_url_thumb + \"' alt=\"\">")
                     $("#profilePic").attr("src", image_url_thumb);
                 }
@@ -59,13 +59,13 @@ function displayProfileId(userId) {
                      image_title = feed_image["title"];
                      appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
                      $("#slider").append(appender);
-                     console.log("Success")
+                     //console.log("Success")
                 
                  }
             },
             error: function (data) {
                 alert('An error occurred while fetching the feed. Please try again.');
-                console.log(data);
+                //console.log(data);
             }
         });
     }
@@ -88,7 +88,7 @@ function getUserDetails() {
                 displayProfileId(user_id);
                 first_item = data["Items"][0];
                 if (first_item) {
-                    console.log(first_item);
+                    console.log(first_item["followers"]["L"][0]["S"]);
                     user_result_username = first_item["username"]["S"];
                     user_result_dob = first_item["dob"] ? first_item["dob"]["S"] : "";
                     user_result_about = 'About:  ' + first_item["about"] ? first_item["about"]["S"] : "";
@@ -110,6 +110,8 @@ function getUserDetails() {
                     other_details_html += showListOfItems(user_result_followers, user_result_username + "'s followers", "user_details.html?id=");
                     other_details_html += showListOfItems(user_uploaded_images, user_result_username + "'s images", "image_details.html?id=");
                     document.getElementById("other_info").innerHTML += other_details_html;
+                    
+                   
                 }
             }
 
@@ -121,9 +123,9 @@ function getUserDetails() {
 function followUnfollowUser() {
     var Accesstoken = sessionStorage.getItem('AccessToken');
     following_id = getParameterByName("id");
-    console.log("following_id:", following_id);
+    //console.log("following_id:", following_id);
     var currentUserId = sessionStorage.getItem("UserId");
-    console.log("Current user ID: " + currentUserId);
+    //console.log("Current user ID: " + currentUserId);
     if (currentUserId) {
         data = {
             user_id: currentUserId,
@@ -145,7 +147,7 @@ function followUnfollowUser() {
             //"data": "{\n\"user_id\": \"3\",\n\"following_id\": \"7\"\n}"
             "data": JSON.stringify(data)
         }
-        console.log(settings)
+        //console.log(settings)
         $.ajax(settings).done(function (response) {
             sessionResponse = response["Attributes"];
 
@@ -162,19 +164,19 @@ function followUnfollowUser() {
 function followUnfollowButtonClick() {
     following_id = getParameterByName("id");
     sessionResult = sessionStorage.getItem("UserDetails")
-    console.log(sessionResult)
+    //console.log(sessionResult)
     if (sessionResult) {
         sessionResult = JSON.parse(sessionResult)
-        console.log(sessionResult)
+        //console.log(sessionResult)
         followingList = sessionResult["following"]
-        console.log(followingList)
+        //console.log(followingList)
         if (following_id != sessionStorage.getItem("UserId")) {
             if (followingList && followingList.indexOf(following_id) >= 0) {
-                console.log("following id in list")
+                //console.log("following id in list")
                 // document.getElementById("clickfollow").value = "Unfollow";
                 document.getElementById("followme").innerHTML = "UNFOLLOW";
             } else {
-                console.log("following id not in list")
+                //console.log("following id not in list")
                 // document.getElementById("clickfollow").value = "Follow";
                 document.getElementById("followme").innerHTML = "FOLLOW";
 
