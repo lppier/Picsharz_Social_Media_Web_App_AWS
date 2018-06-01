@@ -30,13 +30,14 @@
 
 <body id="page-top" onload="getUserDetails()">
 <header class="masthead bg-primary text-white text-center">
-    <div class="container">
-        <img class="img-fluid mb-5 d-block mx-auto" src="img/mj.jpg" alt="">
+    <div id="profile" class="container">
+        <img id="profilePic" class="img-fluid mb-5 d-block mx-auto" src="img/mj.jpg" alt="">
         <h1 class="text-uppercase mb-0" id="name"></h1>
         <hr class="star-light">
         <h2 class="font-weight-light mb-0" id="about"></h2>
         <hr class="star-light">
-        <button id="followme1" type="button" class="btn btn-xl btn-outline-light" onclick="followUnfollowUser()">FOLLOW</button>
+        <button id="followme" type="button" class="btn btn-xl btn-outline-light" onclick="followUnfollowUser()">FOLLOW
+        </button>
     </div>
 </header>
 <!-- Navigation -->

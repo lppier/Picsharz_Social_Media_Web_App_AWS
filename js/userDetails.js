@@ -27,6 +27,60 @@ function showListOfItems(item_list, header_text, link_text) {
     return "";
 }
 
+
+
+function displayProfileId(userId) {
+    var Accesstoken = sessionStorage.getItem('AccessToken');
+    if (userId) {
+        console.log("UserId: " + userId);
+        request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
+        console.log("url" + request_url)
+        $.ajax({
+            url: request_url,
+            type: 'GET',
+            headers: {
+                'Authorization': Accesstoken
+            },
+            success: function (data) {
+                $("#feedLoading").html("Your feed...")
+                console.log(data);
+                feed_results = data;
+                // alert('Number of feed images: ' + feed_results.length);
+                if (feed_results.length > 0) {
+                    feed_image = feed_results[feed_results.length-1];
+                    image_url_thumb = feed_image["url_thumb"];
+                    console.log(image_url_thumb);
+                    //$("#profilePic").html("<img class=\"img-fluid mb-5 d-block mx-auto\" src='\" + image_url_thumb + \"' alt=\"\">")
+                    $("#profilePic").attr("src", image_url_thumb);
+                }
+                // for (var i = 0; i < feed_results.length; i++) {
+                //     feed_image = feed_results[i];
+                //     image_id = feed_image["id"];
+                //     image_url_thumb = feed_image["url_thumb"];
+                //     image_title = feed_image["title"];
+                //     image_uploaded_by = feed_image["upload_user"];
+                //
+                //     if (image_url_thumb) {
+                //         image_html =
+                //             "<div class=\"card\">" +
+                //             "<a href='image_details.html?id=" + image_id + "'>" +
+                //             "<img src='" + image_url_thumb + "'>" +
+                //             "<p><span>" + image_title + "</span></p>" +
+                //             "<p><span><a href='user_details.html?id=" + image_uploaded_by + "'>" + image_uploaded_by + "</a></span></p>" +
+                //             "</a>" +
+                //             "</div>";
+                //         $("#userFeed").append(image_html);
+                //     }
+                // }
+            },
+            error: function (data) {
+                alert('An error occurred while fetching the feed. Please try again.');
+                console.log(data);
+            }
+        });
+    }
+}
+
 function getUserDetails() {
     var Accesstoken = sessionStorage.getItem('AccessToken');
     user_id = getParameterByName("id");
@@ -41,6 +95,7 @@ function getUserDetails() {
         },
         success: function (data) {
             if (data) {
+                displayProfileId(user_id);
                 first_item = data["Items"][0];
                 if (first_item) {
                     console.log(first_item);
@@ -126,13 +181,16 @@ function followUnfollowButtonClick() {
         if (following_id != sessionStorage.getItem("UserId")) {
             if (followingList && followingList.indexOf(following_id) >= 0) {
                 console.log("following id in list")
-                document.getElementById("clickfollow").value = "Unfollow";
+                // document.getElementById("clickfollow").value = "Unfollow";
+                document.getElementById("followme").innerHTML = "UNFOLLOW";
             } else {
                 console.log("following id not in list")
-                document.getElementById("clickfollow").value = "Follow";
+                // document.getElementById("clickfollow").value = "Follow";
+                document.getElementById("followme").innerHTML = "FOLLOW";
 
             }
-            localStorage.setItem("followButton", document.getElementById("clickfollow").value);
+            // localStorage.setItem("followButton", document.getElementById("clickfollow").value);
+            localStorage.setItem("followButton", document.getElementById("followme").innerHTML);
         }
       else{
           $("#clickfollow").hide();
