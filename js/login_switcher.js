@@ -11,7 +11,7 @@ AWS.config.update({
 
 var s3 = new AWS.S3({
     apiVersion: '2006-03-01',
-    params: { Bucket: bucketName }
+    params: {Bucket: bucketName}
 });
 
 
@@ -64,17 +64,17 @@ $(function () {
     }
 
     function generateUserFeed(userId) {
-        var Accesstoken = sessionStorage.getItem('AccessToken');        
+        var Accesstoken = sessionStorage.getItem('AccessToken');
         if (userId) {
             console.log("UserId: " + userId);
             request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
-            console.log("url" +request_url)
+            console.log("url" + request_url)
             $.ajax({
                 url: request_url,
                 type: 'GET',
                 headers: {
                     'Authorization': Accesstoken
-                },                
+                },
                 success: function (data) {
                     $("#feedLoading").html("Your feed...")
                     console.log(data);
@@ -110,7 +110,7 @@ $(function () {
     }
 
     function cacheUserDetails() {
-        var Accesstoken = sessionStorage.getItem('AccessToken');         
+        var Accesstoken = sessionStorage.getItem('AccessToken');
         var data = {
             UserPoolId: 'us-east-1_SDBkZhuhS',
             ClientId: '1024n0vvdvpul68t4tqn2ae4sj'
@@ -130,7 +130,7 @@ $(function () {
             type: 'GET',
             headers: {
                 'Authorization': Accesstoken
-            },            
+            },
             success: function (data) {
                 if (data) {
                     console.log("Getting the user details for the current user");

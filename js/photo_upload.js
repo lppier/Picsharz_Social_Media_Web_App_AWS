@@ -21,11 +21,34 @@ $(function () {
     //         console.log("Not authenticated");
     //         return;
     //     })
+    var userPool = Cognito.getUserPool();
+    var cognitoUser = userPool.getCurrentUser();
+    var s3;
 
-    var s3 = new AWS.S3({
-        apiVersion: '2006-03-01',
-        params: {Bucket: bucketName}
-    });
+    if (cognitoUser != null) {
+        cognitoUser.getSession(function (err, session) {
+            if (err) {
+                alert(err);
+                return;
+            }
+            console.log('session validity: ' + session.isValid());
+
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc',
+                Logins: {
+                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_SDBkZhuhS': session.getIdToken().getJwtToken()
+                }
+            });
+
+            // Instantiate aws sdk service objects now that the credentials have been updated.
+            s3 = new AWS.S3({
+                apiVersion: '2006-03-01',
+                params: {Bucket: bucketName}
+            });
+
+        });
+    }
+
 
     $('#addphoto').on('click', function () {
         //test();
@@ -116,7 +139,7 @@ $(function () {
         //var albumPhotosKey = encodeURIComponent(albumName) + '/';
 
         var datetime_hash = $.now();
-        fileName = fileName.replace(/ /g,"_");
+        fileName = fileName.replace(/ /g, "_");
         console.log(fileName);
         var photoKey = datetime_hash + "_" + fileName; //albumPhotosKey + fileName;
         console.log(photoKey);
@@ -147,10 +170,9 @@ $(function () {
         });
     }
 
-    function pageReloadOnUploadSuccess()
-    {
+    function pageReloadOnUploadSuccess() {
         var buttonText = $('#cancelphoto').text();
-        if(buttonText && buttonText == "OK"){
+        if (buttonText && buttonText == "OK") {
             window.location.reload(true);
         }
     }

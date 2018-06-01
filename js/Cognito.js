@@ -103,9 +103,7 @@
                 // Add the User's Id Token to the Cognito credentials login map.
                 AWS.config.region = 'us-east-1';
                 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                    AccountId: '528416560993',
                     IdentityPoolId: 'us-east-1:80a04569-cb3e-4321-bbd3-2049ac9c23cc',
-                    RoleArn: 'arn:aws:iam::528416560993:role/Cognito_Picsharz_Identity_PoolAuth_Role',
                     Logins: {
                         'cognito-idp.us-east-1.amazonaws.com/us-east-1_SDBkZhuhS': session.getIdToken().getJwtToken()
                     }
@@ -130,6 +128,9 @@
         })
     }
 
+    function getUserPool() {
+        return UserPool;
+    }
     function getUser() {
         return (
             getSession()
@@ -176,6 +177,7 @@
         getSession: getSession,
         getUser: getUser,
         getUserName: getUserName,
+        getUserPool: getUserPool,
         signOut: signOut,
         isAuthenticated: isAuthenticated,
         isNotAuthenticated: isNotAuthenticated,

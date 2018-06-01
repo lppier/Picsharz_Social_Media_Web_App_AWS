@@ -4,11 +4,14 @@ import datetime
 import time
 
 rekognition = boto3.client('rekognition')
+client = boto3.client('sns')
+
 main_images_bucket_name = "team30ws-mediarepofinal"
 resized_images_bucket_name = "team30ws-mediarepofinalresized"
 
 # seconds after which the URL will expire - set to 1 week
 url_expires_in = 604799
+
 
 def lambda_handler(event, context):
     print("Loading function")
@@ -18,7 +21,7 @@ def lambda_handler(event, context):
     print(event['urlmain'])
     print(event['urlthumb'])
 
-    taglist = []  # [event['tag1'], event['tag2'], event['tag3'], event['tag4'], event['tag5']]
+    taglist = []
 
     if event['tag1'] != "":
         taglist.append(event['tag1'])
@@ -43,41 +46,57 @@ def lambda_handler(event, context):
     dynamo_table = dynamodb.Table("image_details")
 
     image_id = str(uuid.uuid4())
-    
+
     s3 = boto3.client('s3')
 
-    # Generate the pre signed URL for the main image
-    presigned_url_main_image = s3.generate_presigned_url(
-    ClientMethod='get_object',
-    Params={
-        'Bucket': main_images_bucket_name,
-        'Key': event['key']
-    },
-    ExpiresIn = url_expires_in
-    )
-    
-    presigned_url_thumb_image = s3.generate_presigned_url(
-    ClientMethod='get_object',
-    Params={
-        'Bucket': resized_images_bucket_name,
-        'Key': event['key']
-    },
-    ExpiresIn = url_expires_in
-    )
+    # ======== Unsafe Image Detection here
 
+    response_unsafe = detectmoderationlabels(event['bucket'], event['key'])
+    if response_unsafe["ModerationLabels"]:
+        print(response_unsafe)
 
-    dynamo_table.put_item(Item={"id": image_id, "description": event['description'],
-                                "tags": taglist, "title": event['title'], "upload_user": event['userid'],
-                                "url_main": event['urlmain'],
-                                "url_thumb": event['urlthumb'],
-                                "time": datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),
-                                "presigned_url_main": presigned_url_main_image,
-                                "presigned_url_thumb": presigned_url_thumb_image
-                                })
-     
+        tosend1 = "Alert: Userid {0} uploaded an Unsafe Image! The image is ".format(event['userid'])
+        for Label in response_unsafe["ModerationLabels"]:
+            # print('{0} - {1}%'.format(Label["Name"], Label["Confidence"]))
+            tosend2 = ' {0} - {1:.2f}% - {2}'.format(Label["ParentName"], Label["Confidence"], Label["Name"])
+
+        tosend = tosend1 + tosend2
+        # Send Email/trigger SNS
+        messagesns = client.publish(
+            TargetArn='arn:aws:sns:us-east-1:528416560993:image-reko-sns',
+            Message=tosend,
+            Subject='Warning! An Unsafe Image Was Uploaded! Take Action NOW and earn your Moderator pay!',
+        )
+        # Print response to console.
+        print(response_unsafe)
+
+    # #====================================
+
+    # update flag in table
+    if response_unsafe["ModerationLabels"]:
+        for Label in response_unsafe["ModerationLabels"]:
+            unsafe_flag = Label["ParentName"]
+            unsafe_name = Label["Name"]
+
+        dynamo_table.put_item(Item={"id": image_id, "description": event['description'], "unsafe_image": unsafe_flag,
+                                    "unsafe_name": unsafe_name,
+                                    "tags": taglist, "title": event['title'], "upload_user": event['userid'],
+                                    "url_main": event['urlmain'],
+                                    "url_thumb": event['urlthumb'],
+                                    "time": datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                                    })
+
+    else:
+        dynamo_table.put_item(Item={"id": image_id, "description": event['description'],
+                                    "tags": taglist, "title": event['title'], "upload_user": event['userid'],
+                                    "url_main": event['urlmain'],
+                                    "url_thumb": event['urlthumb'],
+                                    "time": datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                                    })
+
     # add the newly added image to the user's uploaded items
     users_table = dynamodb.Table("users")
-    user_details = users_table.get_item(Key = {'id' : event['userid']})
+    user_details = users_table.get_item(Key={'id': event['userid']})
 
     if user_details and user_details["Item"]:
         user_details_item = user_details["Item"]
@@ -87,17 +106,15 @@ def lambda_handler(event, context):
         if user_uploaded_images is None:
             print("There are no existing images for the user")
             user_uploaded_images = []
-        
+
         # Add the ID of the new image to the list
         user_uploaded_images.append(image_id)
 
         # Update the users table
-        users_table.update_item(Key = {'id': event['userid']}, UpdateExpression = 'SET uploaded_images =  :element',
-                                    ExpressionAttributeValues = {':element' : user_uploaded_images})
-        
+        users_table.update_item(Key={'id': event['userid']}, UpdateExpression='SET uploaded_images =  :element',
+                                ExpressionAttributeValues={':element': user_uploaded_images})
+
         print("Updated the user table with the newly added image")
-
-
 
     return 'Insert Image Entry Success'
 
@@ -108,3 +125,10 @@ def detect_labels(bucket, key):
                                          MaxLabels=5,
                                          MinConfidence=80)
     return response
+
+
+# added 31th May
+def detectmoderationlabels(bucket, key):
+    response2 = rekognition.detect_moderation_labels(Image={"S3Object": {"Bucket": bucket, "Name": key}},
+                                                     MinConfidence=90)
+    return response2
