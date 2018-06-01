@@ -53,25 +53,15 @@ function displayProfileId(userId) {
                     //$("#profilePic").html("<img class=\"img-fluid mb-5 d-block mx-auto\" src='\" + image_url_thumb + \"' alt=\"\">")
                     $("#profilePic").attr("src", image_url_thumb);
                 }
-                // for (var i = 0; i < feed_results.length; i++) {
-                //     feed_image = feed_results[i];
-                //     image_id = feed_image["id"];
-                //     image_url_thumb = feed_image["url_thumb"];
-                //     image_title = feed_image["title"];
-                //     image_uploaded_by = feed_image["upload_user"];
-                //
-                //     if (image_url_thumb) {
-                //         image_html =
-                //             "<div class=\"card\">" +
-                //             "<a href='image_details.html?id=" + image_id + "'>" +
-                //             "<img src='" + image_url_thumb + "'>" +
-                //             "<p><span>" + image_title + "</span></p>" +
-                //             "<p><span><a href='user_details.html?id=" + image_uploaded_by + "'>" + image_uploaded_by + "</a></span></p>" +
-                //             "</a>" +
-                //             "</div>";
-                //         $("#userFeed").append(image_html);
-                //     }
-                // }
+                 for (var i = 0; i < feed_results.length; i++) {
+                     feed_image = feed_results[i];
+                     image_url_thumb = feed_image["url_thumb"];
+                     image_title = feed_image["title"];
+                     appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
+                     $("#slider").append(appender);
+                     console.log("Success")
+                
+                 }
             },
             error: function (data) {
                 alert('An error occurred while fetching the feed. Please try again.');
