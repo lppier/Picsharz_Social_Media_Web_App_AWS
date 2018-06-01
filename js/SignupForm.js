@@ -52,7 +52,10 @@
         yourDate = yourDate.toISOString().split('T')[0];
 
         if ($inputs.password.value !== $inputs.repeatPassword.value) {
-            console.log('Passwords do not match!')
+            addAlert({
+                type: 'error',
+                message: "Inputs passwords do not match!",
+            })
             return;
         }
         startLoading()
