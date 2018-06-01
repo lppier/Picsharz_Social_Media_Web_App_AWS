@@ -109,7 +109,27 @@ function getUserDetails() {
                     other_details_html += showListOfItems(user_result_following, user_result_username + " is following", "user_details.html?id=");
                     other_details_html += showListOfItems(user_result_followers, user_result_username + "'s followers", "user_details.html?id=");
                     other_details_html += showListOfItems(user_uploaded_images, user_result_username + "'s images", "image_details.html?id=");
-                    document.getElementById("other_info").innerHTML += other_details_html;
+                    //document.getElementById("other_info").innerHTML += other_details_html;
+                    
+                    for (var i=0; i< first_item["followers"]["L"].length; i++){
+                        appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["followers"]["L"][i]["S"] + '">' + first_item["followers"]["L"][i]["S"] + '</a></li>';
+                        $("#fing").append(appender);
+                    }
+                    
+                    for (var i=0; i< first_item["following"]["L"].length; i++){
+                        appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["following"]["L"][i]["S"] + '">' + first_item["following"]["L"][i]["S"] + '</a></li>';
+                        $("#fers").append(appender);
+                    }
+                    
+                    for (var i=0; i< first_item["likes"]["L"].length; i++){
+                        appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["likes"]["L"][i]["S"] + '">' + first_item["likes"]["L"][i]["S"] + '</a></li>';
+                        $("#lkrs").append(appender);
+                    }
+                    
+                    for (var i=0; i< first_item["uploaded_images"]["L"].length; i++){
+                        appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["uploaded_images"]["L"][i]["S"] + '">' + first_item["uploaded_images"]["L"][i]["S"] + '</a></li>';
+                        $("#imgz").append(appender);
+                    }
                     
                    
                 }
