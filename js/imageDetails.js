@@ -118,7 +118,7 @@ function getImageDetails() {
                                 //console.log(first_item["tags"]["L"].length);
                                 for(var i=0;i<first_item["tags"]["L"].length;i++)
                                     {
-                                        appender = '<span class="label label-primary">' + first_item["tags"]["L"][i]["S"] + '</span>&nbsp;&nbsp;&nbsp;&nbsp;';
+                                        appender = '<div style="padding: 5px; display: inline-block;"><span class="label label-primary">' + first_item["tags"]["L"][i]["S"] + '</div></span>';
                                         //console.log(first_item["tags"]["L"][i]["S"]);
                                         document.getElementById("imginfo").innerHTML += appender;
                                     }
