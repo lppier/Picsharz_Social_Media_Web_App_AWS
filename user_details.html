@@ -33,7 +33,7 @@
 <body id="page-top" onload="getUserDetails()" style="background-color:#222">
 <header class="masthead bg-primary text-white text-center">
     <div id="profile" class="container">
-        <img id="profilePic" class="img-fluid mb-5 d-block mx-auto img-thumbnail" src="img/mj.jpg" alt="">
+        <img id="profilePic" class="img-fluid mb-5 d-block mx-auto img-thumbnail" src="" alt="" >
         <h1 class="text-uppercase mb-0" id="name"></h1>
         <hr class="star-light">
         <h2 class="font-weight-light mb-0" id="about"></h2>
@@ -63,12 +63,20 @@
             <i class="fa fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a id="photoUploader" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                       data-toggle="modal" data-target="#add-photo-modal">Upload</a>
+                </li>
                 <div id="logoutSwitch">
                     <li class="nav-item mx-0 mx-lg-1">
                         <a id="logoutA" class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger">Log Out</a>
                     </li>
                 </div>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#search">Search</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -78,128 +86,33 @@
 <p></p>
 <div class="d-flex flex-row justify-content-center">
     <div class="p-2">
-        <button class="btn btn-xl btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown">
-            Followers: 5
+        <button id="followersBtn" class="btn btn-xl btn-outline-light dropdown-toggle" type="button"
+                data-toggle="dropdown">
+            Followers: 0
             <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
+        <ul id="followers" class="dropdown-menu">
         </ul>
     </div>
     <div class="p-2">
-        <button class="btn btn-xl btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown">
-            Following: 5
+        <button id="followingBtn" class="btn btn-xl btn-outline-light dropdown-toggle" type="button"
+                data-toggle="dropdown">
+            Following: 0
             <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
+        <ul id="followingList" class="dropdown-menu">
         </ul>
     </div>
+
+</div>
+<div class="d-flex flex-row justify-content-center">
     <div class="p-2">
-        <button class="btn btn-xl btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown">
-            Likes: 5
+        <button id="imagesLikedBtn" class="btn btn-xl btn-outline-light dropdown-toggle" type="button"
+                data-toggle="dropdown">
+            Images Liked: 0
             <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
+        <ul id="userLikes" class="dropdown-menu">
         </ul>
     </div>
 </div>
-<div class="container">
-    <br/>
-    <div class="row">
-
-        <div class="dual-list list-left col-md-3">
-            <div class="well text-right">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="Followers"/>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="btn-group">
-
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group fing" id="fing">
-
-                </ul>
-            </div>
-        </div>
-
-        <div class="dual-list list-left col-md-3">
-            <div class="well text-right">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="Following"/>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="btn-group">
-
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group" id="fers">
-
-                </ul>
-            </div>
-        </div>
-
-        <div class="dual-list list-left col-md-3">
-            <div class="well text-right">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="Likes"/>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="btn-group">
-
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group" id="lkrs">
-
-                </ul>
-            </div>
-        </div>
-
-        <div class="dual-list list-left col-md-3">
-            <div class="well text-right">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon glyphicon glyphicon-search"></span>
-                            <input type="text" name="SearchDualList" class="form-control" placeholder="Images"/>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="btn-group">
-
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group" id="imgz">
-
-                </ul>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
 <!-- --------------------------------------------------------------------------------- -->
 
 <div>
@@ -209,6 +122,36 @@
         <div class="slider__btn"></div>
     </div>
 
+</div>
+
+<!-- Upload Image modal -->
+<div class="modal fade" id="add-photo-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">UPLOAD AN IMAGE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="photoupload-body" class="modal-body">
+                <input id="photoupload" type="file" accept="image/*">
+            </div>
+            <div id="tags-body" class="modal-body">
+                <h6>Tags</h6>
+                <input id="tags" type="text" data-role="tagsinput" value="">
+                <h6>Title</h6>
+                <input id="title" type="text" value="" size="55">
+                <h6>What's the Image About?</h6>
+                <input id="description" type="text" value="" size="55">
+            </div>
+            <div class="modal-footer">
+                <button id="cancelphoto" type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                <button id="addphoto" type="button" class="btn btn-primary">UPLOAD IMAGE</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
@@ -240,10 +183,11 @@
 <script src="js/lib/aws-cognito-sdk.min.js"></script>
 <script src="js/lib/amazon-cognito-identity.min.js"></script>
 <script src="js/Cognito.js"></script>
-<!-- <script src="js/login_switcher.js"></script> -->
 <!-- AWS SDK -->
 <script src="js/lib/aws-sdk.js"></script>
-
+<script src="js/lib/tagsinput.js"></script>
+<script src="js/userDetailsLogout.js"></script>
+<script src="js/photo_upload.js"></script>
 
 </body>
 

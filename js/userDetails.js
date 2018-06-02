@@ -27,48 +27,41 @@ function showListOfItems(item_list, header_text, link_text) {
     return "";
 }
 
-
-
-function displayProfileId(userId) {
+function getImageDetails(image_id) {
     var Accesstoken = sessionStorage.getItem('AccessToken');
-    if (userId) {
-       // console.log("UserId: " + userId);
-        request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
-       // console.log("url" + request_url)
-        $.ajax({
-            url: request_url,
-            type: 'GET',
-            headers: {
-                'Authorization': Accesstoken
-            },
-            success: function (data) {
-                $("#feedLoading").html("Your feed...")
-                //console.log(data);
-                feed_results = data;
-                // alert('Number of feed images: ' + feed_results.length);
-                if (feed_results.length > 0) {
-                    feed_image = feed_results[feed_results.length-1];
-                    image_url_thumb = feed_image["url_thumb"];
-                    //console.log(image_url_thumb);
-                    //$("#profilePic").html("<img class=\"img-fluid mb-5 d-block mx-auto\" src='\" + image_url_thumb + \"' alt=\"\">")
-                    $("#profilePic").attr("src", image_url_thumb);
+    console.log("image id is " + image_id)
+    request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/id/" + image_id
+    $.ajax({
+        url: request_url,
+        type: 'GET',
+        headers: {
+            'Authorization': Accesstoken
+        },
+        success: function (data) {
+            if (data) {
+                if (data["Items"][0]) {
+                    var first_item = data["Items"][0];
+                    if (first_item) {
+                        console.log("Getting user profile image");
+                        console.log(first_item);
+                        img_result_title = first_item["title"] ? first_item["title"]["S"] : "";
+                        img_result_url_main = first_item["url_main"] ? first_item["url_main"]["S"] : "";
+                        img_result_upload_user = first_item["upload_user"] ? first_item["upload_user"]["S"] : "";
+                        img_result_description = first_item["description"] ? first_item["description"]["S"] : "";
+                        img_result_tags = first_item["tags"] ? first_item["tags"]["L"] : "";
+                        img_result_time = first_item["time"] ? first_item["time"]["S"] : "";
+                        img_result_like_by = first_item["like_by"] ? first_item["like_by"]["L"] : "";
+                        img_result_thumb = first_item["url_thumb"] ? first_item["url_thumb"]["S"] : ""; 
+       
+                        $("#profilePic").attr("src", img_result_thumb);
+                    }
                 }
-                 for (var i = 0; i < feed_results.length; i++) {
-                     feed_image = feed_results[i];
-                     image_url_thumb = feed_image["url_thumb"];
-                     image_title = feed_image["title"];
-                     appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
-                     $("#slider").append(appender);
-                     //console.log("Success")
-                
-                 }
-            },
-            error: function (data) {
-                alert('An error occurred while fetching the feed. Please try again.');
-                //console.log(data);
             }
-        });
-    }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("An error occurred while trying to get the image details: " + errorThrown);
+        }
+    });
 }
 
 function getUserDetails() {
@@ -85,7 +78,6 @@ function getUserDetails() {
         },
         success: function (data) {
             if (data) {
-                displayProfileId(user_id);
                 first_item = data["Items"][0];
                 if (first_item) {
                     //console.log(first_item["followers"]["L"][0]["S"]);
@@ -98,8 +90,18 @@ function getUserDetails() {
                     user_result_following = first_item["following"] ? first_item["following"]["L"] : "";
                     user_result_followers = first_item["followers"] ? first_item["followers"]["L"] : "";
                     user_uploaded_images = first_item["uploaded_images"] ? first_item["uploaded_images"]["L"] : "";
+                    
+                    console.log(user_uploaded_images);
+                    // show the user's profile picture as the first image they have uploaded, if it exists
+                    if(user_uploaded_images && user_uploaded_images.length >= 1){
+                        first_uploaded_image_id = user_uploaded_images[0]["S"];
+                        getImageDetails(first_uploaded_image_id);
+                    }
+                    
+                    // show the user's uploaded images
+                    displayUserUploadedImages(user_id);
 
-                    //user_result_name = 'Hi ' + user_result_name 
+
                     document.getElementById("name").innerHTML = user_result_username;
                     document.getElementById("about").innerHTML = user_result_about;
                     document.getElementById("country").innerHTML = user_result_country;
@@ -110,38 +112,79 @@ function getUserDetails() {
                     other_details_html += showListOfItems(user_result_followers, user_result_username + "'s followers", "user_details.html?id=");
                     other_details_html += showListOfItems(user_uploaded_images, user_result_username + "'s images", "image_details.html?id=");
                     //document.getElementById("other_info").innerHTML += other_details_html;
-                    
-                    if(first_item["followers"]){
-                    for (var i=0; i< first_item["followers"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["followers"]["L"][i]["S"] + '">' + first_item["followers"]["L"][i]["S"] + '</a></li>';
-                        $("#fing").append(appender);
-                    }}
-                    
-                    if(first_item["following"]){
-                    for (var i=0; i< first_item["following"]["L"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["following"]["L"][i]["S"] + '">' + first_item["following"]["L"][i]["S"] + '</a></li>';
-                        $("#fers").append(appender);
-                    }}
-                    
-                    if(first_item["likes"]){
-                    for (var i=0; i< first_item["likes"]["L"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["likes"]["L"][i]["S"] + '">' + first_item["likes"]["L"][i]["S"] + '</a></li>';
-                        $("#lkrs").append(appender);
-                    }}
-                    
-                    if(first_item["uploaded_images"]){
-                    for (var i=0; i< first_item["uploaded_images"]["L"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["uploaded_images"]["L"][i]["S"] + '">' + first_item["uploaded_images"]["L"][i]["S"] + '</a></li>';
-                        $("#imgz").append(appender);
-                    }}
-                    
-                   
+
+                    if (first_item["followers"]) {
+                        let followCnt = 0;
+                        for (let i = 0; i < first_item["followers"]["L"].length; i++) {
+                            followCnt++;
+                            let appender = '<li class="list-group-item"> <a href="./user_details.html?id=' + first_item["followers"]["L"][i]["S"] + '">' + first_item["followers"]["L"][i]["S"] + '</a></li>';
+                            $("#followers").append(appender);
+                        }
+                        $("#followersBtn").html("Followers: " + followCnt);
+                    }
+
+
+                    if (first_item["following"]) {
+                        let followingCnt = 0;
+                        for (let i = 0; i < first_item["following"]["L"].length; i++) {
+                            followingCnt++;
+                            let appender = '<li class="list-group-item"> <a href="./user_details.html?id=' + first_item["following"]["L"][i]["S"] + '">' + first_item["following"]["L"][i]["S"] + '</a></li>';
+                            $("#followingList").append(appender);
+                        }
+                        $("#followingBtn").html("Following: " + followingCnt);
+                    }
+
+                    if (first_item["likes"]) {
+                        let userLikeCnt = 0;
+                        for (let i = 0; i < first_item["likes"]["L"].length; i++) {
+                            userLikeCnt++;
+                            let appender = '<li class="list-group-item"> <a href="./image_details.html?id=' + first_item["likes"]["L"][i]["S"] + '">' + first_item["likes"]["L"][i]["S"] + '</a></li>';
+                            $("#userLikes").append(appender);
+                        }
+                        $("#imagesLikedBtn").html("Images Liked: " + userLikeCnt);
+                    }
                 }
             }
 
         }
 
     });
+}
+
+function displayUserUploadedImages(userId) {
+    if (userId) {
+        var Accesstoken = sessionStorage.getItem('AccessToken');
+        request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
+
+        $.ajax({
+            url: request_url,
+            type: 'GET',
+            headers: {
+                'Authorization': Accesstoken
+            },
+            success: function (data) {
+                console.log("Feed data");
+                console.log(data);
+                feed_results = data;
+
+                for (var i = 0; i < feed_results.length; i++) {
+                    feed_image = feed_results[i];
+
+                    // if the image is uploaded by the current user then append to the image viewer
+                    if (feed_image["upload_user"] == userId) {
+                        image_url_thumb = feed_image["url_thumb"];
+                        image_title = feed_image["title"];
+                        appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
+                        $("#slider").append(appender);
+                    }
+                }
+            },
+            error: function (data) {
+                alert('An error occurred while fetching the feed. Please try again.');
+                //console.log(data);
+            }
+        });
+    }
 }
 
 function followUnfollowUser() {
@@ -214,3 +257,4 @@ function followUnfollowButtonClick() {
     }
 
 }
+

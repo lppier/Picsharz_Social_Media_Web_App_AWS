@@ -24,15 +24,13 @@ $(function () {
             $('#loginSwitch').hide();
             $('#logoutSwitch').show();
             $('#photoUploader').show();
-            // var imgurl = "https://s3.amazonaws.com/team30ws-mediarepofinalresized/1527066615374_male_avatar.png";
-            // $("#imageBox").html('<img src="' + imgurl + '" />');
-            // console.log("displaying image fool");
 
             $('#feedLoading').show();
             $('#userFeed').show();
             $('#staticImages').hide();
             var userId = cacheUserDetails();
             generateUserFeed(userId);
+            $('#profile').html(userId);
         })
         .catch(function (error) {
             console.log("Not authenticated");
@@ -47,6 +45,10 @@ $(function () {
         //test();
         console.log("came in log out click");
         signOut();
+    });
+
+    $('#profile').on('click', function () {
+        viewProfile();
     });
 
 
@@ -170,6 +172,20 @@ $(function () {
         });
 
         return currentUserId;
+    }
+
+    function getBaseUrl() {
+        var re = new RegExp(/^.*\//);
+        return re.exec(window.location.href);
+    }
+
+    function viewProfile() {
+        var userId = sessionStorage.getItem("UserId");
+        if (userId) {
+            base_url = getBaseUrl();
+            user_details_path = "user_details.html?id=" + userId;
+            location.href = base_url + user_details_path;
+        }
     }
 });
 
