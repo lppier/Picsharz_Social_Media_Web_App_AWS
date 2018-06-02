@@ -108,9 +108,9 @@
                         'cognito-idp.us-east-1.amazonaws.com/us-east-1_SDBkZhuhS': session.getIdToken().getJwtToken()
                     }
                 });
-                console.log("reached role auth");
+                //console.log("reached role auth");
 
-                console.log("token: " + session.getIdToken().getJwtToken())
+                //console.log("token: " + session.getIdToken().getJwtToken())
                 sessionStorage.setItem("AccessToken", session.getIdToken().getJwtToken())
                 resolve();
                 return;

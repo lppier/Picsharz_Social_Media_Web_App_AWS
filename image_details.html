@@ -6,14 +6,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Search image and users">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,300,500,600" rel="stylesheet">
+		<!--
+		CSS
+		============================================= -->
+		
+		<link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
 
     <title>PICSHARZ</title>
     <!-- AWS SDK -->
     <script src="js/lib/aws-sdk.js"></script>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    
     <!-- Custom fonts for this template -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -25,6 +32,13 @@
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
     <script src="js/imageDetails.js" ></script>
+    <style>
+        body {
+            
+            color: white;
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body id="page-top" onload="getImageDetails()">
@@ -61,12 +75,67 @@
 
             </div>
             <div class="row" id="specialadd">
+                
+            <div class="main-wrapper-first">
+			<div class="hero-area relative" id="hero-area">
+				
+				<div class="banner-area">
+					<div class="overlay overlay-bg"></div>
+					<div class="container">
+						<div class="row height align-items-center justify-content-center">
+							<div class="col-lg-7">
+								<div class="banner-content text-center">
+									<br><br><br><br><br><br><br><br><br><br><br><br><br>
+									<a onclick="likeUnlikeImage();" class="primary-btn d-inline-flex align-items-center" id="clicklike" name="likeButton"><span class="mr-10" id="liker">Like</span><span class="lnr lnr-arrow-right"></span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="main-wrapper">
+			<!-- Start Feature Area -->
+			<section class="featured-area pt-100 pb-100" style="background-color:#222">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6">
+							<div class="feature-left">
+								<h2>
+									
+									<span id="imgname"></span>
+								</h2>
+                                <h4> <span id="imgdesc" style="color:#f3d8a5;"></span></h4>
+								<p id="imginfo" >
+                                    <span class="label label-primary">test</span>
+									
+								</p>
+								<button class="primary-btn hover d-inline-flex align-items-center"><span class="mr-10" id="visituser">Visit User</span><span class="lnr lnr-arrow-right"></span></button>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="feature-right active-feature-carousel">
+								<div class="single-slider item">
+									<img id="profilePic" src="" alt="">
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- End Feature Area -->
+			
+		</div>
+
+
+                
             </div>
         </div>
     </section>
 
 
-    <input id="clicklike" name="likeButton" type="button" onclick="likeUnlikeImage();" />
+  <!--  <input id="clicklike" name="likeButton" type="button" onclick="likeUnlikeImage();" /> -->
     <div class="container" id="imagesection">
 
 

@@ -66,7 +66,7 @@ function showListOfItems(item_list, header_text, link_text) {
 function getImageDetails() {
     var Accesstoken = sessionStorage.getItem('AccessToken');
     image_id = getParameterByName("id");
-    console.log("image id is " + image_id)
+    //console.log("image id is " + image_id)
     request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/id/" + image_id
     likeUnlikeButtonClick();
     $.ajax({
@@ -89,11 +89,44 @@ function getImageDetails() {
                         img_result_time = first_item["time"] ? first_item["time"]["S"] : "";
                         img_result_like_by = first_item["like_by"] ? first_item["like_by"]["L"] : "";
 
-                        document.getElementById("imagesection").innerHTML = '<h1 id="title">' + img_result_title + ' </h1> <img src="' + img_result_url_main + '" height="75%" width = "50%"> <p id = "description">' + img_result_description + '</p><p><h4>Image uploaded by: </h4><a href="user_details.html?id=' + img_result_upload_user + '">' + img_result_upload_user + '</a></p>';
+                        //document.getElementById("imagesection").innerHTML = '<h1 id="title">' + img_result_title + ' </h1> <img src="' + img_result_url_main + '" height="75%" width = "50%"> <p id = "description">' + img_result_description + '</p><p><h4>Image uploaded by: </h4><a href="user_details.html?id=' + img_result_upload_user + '">' + img_result_upload_user + '</a></p>';
 
                         lists_html = showListOfItems(img_result_tags, "Tags");
                         lists_html += showListOfItems(img_result_like_by, "Liked By", "user_details.html?id=");
-                        document.getElementById("imagesection").innerHTML += lists_html;
+                        //document.getElementById("imagesection").innerHTML += lists_html;
+                        
+                        //=============================================================
+                        
+                       //console.log(first_item["tags"]["L"])
+                        
+                        
+                        
+                        $("#hero-area").css({"background-size": "contain", "background": "url(\"" + img_result_url_main + "\") no-repeat center/contain", "background-color": "#484848"});
+                        
+                       document.getElementById("imgdesc").innerHTML = img_result_description;
+                        
+                        document.getElementById("imgname").innerHTML = img_result_title;
+                        
+                        document.getElementById("visituser").onclick = 'location.href = user_details.html?id="' + img_result_upload_user + '";';
+                        
+                        document.getElementById("imginfo").innerHTML = "<h2>Tags:</h2>";
+                        
+                        if(first_item["tags"])
+                            {
+                                //console.log(first_item["tags"]["L"].length);
+                                for(var i=0;i<first_item["tags"]["L"].length;i++)
+                                    {
+                                        appender = '<span class="label label-primary">' + first_item["tags"]["L"][i]["S"] + '</span>&nbsp;&nbsp;&nbsp;&nbsp;';
+                                        //console.log(first_item["tags"]["L"][i]["S"]);
+                                        document.getElementById("imginfo").innerHTML += appender;
+                                    }
+                                
+                            }
+                        
+                        
+                        
+                        
+                        
                     }
                 }
             }
@@ -108,7 +141,7 @@ function likeUnlikeImage() {
     var Accesstoken = sessionStorage.getItem('AccessToken');
     image_id = getParameterByName("id");
     var currentUserId = sessionStorage.getItem("UserId");
-    console.log("Current user ID: " + currentUserId);
+    //console.log("Current user ID: " + currentUserId);
     //currentUserId = "3"
     if (currentUserId) {
         data = {
@@ -116,7 +149,7 @@ function likeUnlikeImage() {
             image_id: image_id
         };
         JSON.stringify(data)
-        console.log(data)
+        //console.log(data)
         var settings = {
             "async": true,
             "dataType": "json",
@@ -148,21 +181,24 @@ function likeUnlikeImage() {
 function likeUnlikeButtonClick() {
     image_id = getParameterByName("id");
     sessionResult = sessionStorage.getItem("UserDetails")
-    console.log(sessionResult)
+    //console.log(sessionResult)
     if (sessionResult) {
         sessionResult = JSON.parse(sessionResult)
-        console.log(sessionResult)
+        //console.log(sessionResult)
         likesList = sessionResult["likes"]
         console.log(likesList)
         if (likesList.includes(image_id)) {
-            console.log("image id in list")
-            document.getElementById("clicklike").value = 'Unlike';
+            //console.log("image id in list")
+            document.getElementById("liker").innerHTML = 'Unlike';
+            $("#likeButton").addClass("hover");
         } else {
-            console.log("image id not in list")
-            document.getElementById("clicklike").value = 'Like';
+            //console.log("image id not in list")
+            document.getElementById("liker").innerHTML = 'Like';
+            $("#likeButton").removeClass("hover");
 
         }
-        localStorage.setItem("followButton", document.getElementById("clicklike").value);
+        localStorage.setItem("followButton", document.getElementById("liker").innerHTML);
     }
 
 }
+

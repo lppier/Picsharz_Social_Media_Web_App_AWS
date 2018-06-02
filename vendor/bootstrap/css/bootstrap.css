@@ -235,6 +235,17 @@ label {
   margin-bottom: 0.5rem;
 }
 
+.label-primary {
+  background-color: #337ab7;
+    padding: 4px;
+    margin: 4ps;
+    border-radius: 5px;
+}
+.label-primary[href]:hover,
+.label-primary[href]:focus {
+  background-color: #286090;
+}
+
 button {
   border-radius: 0;
 }

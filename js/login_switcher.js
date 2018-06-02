@@ -20,7 +20,7 @@ $(function () {
     // Check on load if user is authenticated
     Cognito.isAuthenticated()
         .then(function () {
-            console.log("Authenticated");
+           // console.log("Authenticated");
             $('#loginSwitch').hide();
             $('#logoutSwitch').show();
             $('#photoUploader').show();
@@ -33,7 +33,7 @@ $(function () {
             $('#profile').html(userId);
         })
         .catch(function (error) {
-            console.log("Not authenticated");
+            //console.log("Not authenticated");
             $('#logoutSwitch').hide();
             $('#photoUploader').hide();
             $('#userFeed').hide();
@@ -43,7 +43,7 @@ $(function () {
 
     $('#logoutA').on('click', function () {
         //test();
-        console.log("came in log out click");
+        //console.log("came in log out click");
         signOut();
     });
 
@@ -68,9 +68,9 @@ $(function () {
     function generateUserFeed(userId) {
         var Accesstoken = sessionStorage.getItem('AccessToken');
         if (userId) {
-            console.log("UserId: " + userId);
+           // console.log("UserId: " + userId);
             request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
-            console.log("url" + request_url)
+            //console.log("url" + request_url)
             $.ajax({
                 url: request_url,
                 type: 'GET',
@@ -79,7 +79,7 @@ $(function () {
                 },
                 success: function (data) {
                     $("#feedLoading").html("Your feed...")
-                    console.log(data);
+                    //console.log(data);
                     feed_results = data;
                     // alert('Number of feed images: ' + feed_results.length);
 
@@ -117,7 +117,7 @@ $(function () {
                 },
                 error: function (data) {
                     alert('An error occurred while fetching the feed. Please try again.');
-                    console.log(data);
+                    //console.log(data);
                 }
             });
         }
@@ -147,9 +147,9 @@ $(function () {
             },
             success: function (data) {
                 if (data) {
-                    console.log("Getting the user details for the current user");
+                    //console.log("Getting the user details for the current user");
                     first_item = data["Items"][0];
-                    console.log(first_item);
+                    //console.log(first_item);
                     var userDetails = {}
                     userDetails["following"] = [];
                     userDetails["likes"] = [];
