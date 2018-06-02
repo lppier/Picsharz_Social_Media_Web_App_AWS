@@ -95,7 +95,7 @@ function performSearch() {
                                     // get the avatar file based on the user gender
                                     avatar_file_name = user_gender.toLowerCase().startsWith("f") ? "girl" : "boy";
 
-                                    user_details_html = '<div class="col s6 m3 l1">'
+                                    user_details_html = '<div class="col-md-6 col-lg-4">'
                                         + '<div class="card">'
                                         + '<div class="card-image">'
                                         + '<img src="img/avatars/' + avatar_file_name + '.png">'
@@ -123,7 +123,14 @@ function performSearch() {
 
                                 image_result_id = source["id"]["S"];
                                 image_result_url_thumb = source["url_thumb"] ? source["url_thumb"]["S"] : "";
-                                image_html = '<a href="image_details.html?id=' + image_result_id + '"><img class="img-fluid" src="' + image_result_url_thumb + '" alt="" height=""></a>';
+                                image_title = source["title"] ? source["title"]["S"] : "";
+                                image_html = "<div class='col-md-6 col-lg-4'>" +
+                                "<a class='portfolio-item d-block mx-auto' href='image_details.html?id=" + image_result_id + "'>" +
+                                '<div class="portfolio-item-caption d-flex position-absolute h-100 w-100"><div class="portfolio-item-caption-content my-auto w-100 text-center text-white">'+ image_title + '</div></div>' +
+                                '<img class="img-fluid centered-and-cropped" src="' + image_result_url_thumb +'" alt="" height="214" width="296">' +
+                                "</a>" +
+                                "</div>";
+                                // image_html = '<a href="image_details.html?id=' + image_result_id + '"><img class="img-fluid" src="' + image_result_url_thumb + '" alt="" height=""></a>';
                                 $("#staticImages").append(image_html);
                                 console.log("Added image");
                             }
