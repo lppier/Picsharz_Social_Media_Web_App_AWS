@@ -28,13 +28,12 @@ function showListOfItems(item_list, header_text, link_text) {
 }
 
 
-
 function displayProfileId(userId) {
     var Accesstoken = sessionStorage.getItem('AccessToken');
     if (userId) {
-       // console.log("UserId: " + userId);
+        // console.log("UserId: " + userId);
         request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
-       // console.log("url" + request_url)
+        // console.log("url" + request_url)
         $.ajax({
             url: request_url,
             type: 'GET',
@@ -47,21 +46,21 @@ function displayProfileId(userId) {
                 feed_results = data;
                 // alert('Number of feed images: ' + feed_results.length);
                 if (feed_results.length > 0) {
-                    feed_image = feed_results[feed_results.length-1];
+                    feed_image = feed_results[feed_results.length - 1];
                     image_url_thumb = feed_image["url_thumb"];
                     //console.log(image_url_thumb);
                     //$("#profilePic").html("<img class=\"img-fluid mb-5 d-block mx-auto\" src='\" + image_url_thumb + \"' alt=\"\">")
                     $("#profilePic").attr("src", image_url_thumb);
                 }
-                 for (var i = 0; i < feed_results.length; i++) {
-                     feed_image = feed_results[i];
-                     image_url_thumb = feed_image["url_thumb"];
-                     image_title = feed_image["title"];
-                     appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
-                     $("#slider").append(appender);
-                     //console.log("Success")
-                
-                 }
+                for (var i = 0; i < feed_results.length; i++) {
+                    feed_image = feed_results[i];
+                    image_url_thumb = feed_image["url_thumb"];
+                    image_title = feed_image["title"];
+                    appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
+                    $("#slider").append(appender);
+                    //console.log("Success")
+
+                }
             },
             error: function (data) {
                 alert('An error occurred while fetching the feed. Please try again.');
@@ -110,33 +109,45 @@ function getUserDetails() {
                     other_details_html += showListOfItems(user_result_followers, user_result_username + "'s followers", "user_details.html?id=");
                     other_details_html += showListOfItems(user_uploaded_images, user_result_username + "'s images", "image_details.html?id=");
                     //document.getElementById("other_info").innerHTML += other_details_html;
-                    
-                    if(first_item["followers"]){
-                    for (var i=0; i< first_item["followers"]["L"].length; i++){
-                        console.log(i);
-                        appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["followers"]["L"][i]["S"] + '">' + first_item["followers"]["L"][i]["S"] + '</a></li>';
-                        $("#followers").append(appender);
-                    }}
-                    
-                    if(first_item["following"]){
-                    for (var i=0; i< first_item["following"]["L"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["following"]["L"][i]["S"] + '">' + first_item["following"]["L"][i]["S"] + '</a></li>';
-                        $("#followingList").append(appender);
-                    }}
-                    
-                    if(first_item["likes"]){
-                    for (var i=0; i< first_item["likes"]["L"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["likes"]["L"][i]["S"] + '">' + first_item["likes"]["L"][i]["S"] + '</a></li>';
-                        $("#userLikes").append(appender);
-                    }}
-                    
+
+                    if (first_item["followers"]) {
+                        let followCnt = 0;
+                        for (let i = 0; i < first_item["followers"]["L"].length; i++) {
+                            followCnt++;
+                            let appender = '<li class="list-group-item"> <a href="./user_details.html?id=' + first_item["followers"]["L"][i]["S"] + '">' + first_item["followers"]["L"][i]["S"] + '</a></li>';
+                            $("#followers").append(appender);
+                        }
+                        $("#followersBtn").html("Followers: " + followCnt);
+                    }
+
+
+                    if (first_item["following"]) {
+                        let followingCnt = 0;
+                        for (let i = 0; i < first_item["following"]["L"].length; i++) {
+                            followingCnt++;
+                            let appender = '<li class="list-group-item"> <a href="./user_details.html?id=' + first_item["following"]["L"][i]["S"] + '">' + first_item["following"]["L"][i]["S"] + '</a></li>';
+                            $("#followingList").append(appender);
+                        }
+                        $("#followingBtn").html("Following: " + followingCnt);
+                    }
+
+                    if (first_item["likes"]) {
+                        let userLikeCnt = 0;
+                        for (let i = 0; i < first_item["likes"]["L"].length; i++) {
+                            userLikeCnt++;
+                            let appender = '<li class="list-group-item"> <a href="./image_details.html?id=' + first_item["likes"]["L"][i]["S"] + '">' + first_item["likes"]["L"][i]["S"] + '</a></li>';
+                            $("#userLikes").append(appender);
+                        }
+                        $("#imagesLikedBtn").html("Images Liked: " + userLikeCnt);
+                    }
+
                     // if(first_item["uploaded_images"]){
                     // for (var i=0; i< first_item["uploaded_images"]["L"].length; i++){
                     //     appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["uploaded_images"]["L"][i]["S"] + '">' + first_item["uploaded_images"]["L"][i]["S"] + '</a></li>';
                     //     $("#imgz").append(appender);
                     // }}
-                    
-                   
+
+
                 }
             }
 
@@ -209,9 +220,9 @@ function followUnfollowButtonClick() {
             // localStorage.setItem("followButton", document.getElementById("clickfollow").value);
             localStorage.setItem("followButton", document.getElementById("followme").innerHTML);
         }
-      else{
-          $("#clickfollow").hide();
-      }  
+        else {
+            $("#clickfollow").hide();
+        }
     }
 
 }
