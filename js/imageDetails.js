@@ -107,7 +107,9 @@ function getImageDetails() {
                         
                         document.getElementById("imgname").innerHTML = img_result_title;
                         
-                        document.getElementById("visituser").onclick = 'location.href = user_details.html?id="' + img_result_upload_user + '";';
+                        $("#visituser").on('click', function(){
+     window.location = "user_details.html?id=" + img_result_upload_user ;    
+});
                         
                         document.getElementById("imginfo").innerHTML = "<h2>Tags:</h2>";
                         
@@ -122,6 +124,42 @@ function getImageDetails() {
                                     }
                                 
                             }
+                        
+                        //-------------
+                        var Accesstoken = sessionStorage.getItem('AccessToken');
+        //userId = document.getElementById("imgname").innerHTML;
+        request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + img_result_upload_user;
+
+        $.ajax({
+            url: request_url,
+            type: 'GET',
+            headers: {
+                'Authorization': Accesstoken
+            },
+            success: function (data) {
+                console.log("Feed data");
+                console.log(data);
+                feed_results = data;
+
+                for (var i = 0; i < feed_results.length; i++) {
+                    feed_image = feed_results[i];
+
+                    // if the image is uploaded by the current user then append to the image viewer
+                    if (feed_image["upload_user"] == img_result_upload_user) {
+                        image_url_thumb = feed_image["url_thumb"];
+                        
+                    }
+                    
+                    $("#profilePic").attr("src", image_url_thumb);
+                }
+            },
+            error: function (data) {
+                alert('An error occurred while fetching the feed. Please try again.');
+                //console.log(data);
+            }
+        });
+    
+                        //-------------
                         
                         
                         
@@ -201,4 +239,8 @@ function likeUnlikeButtonClick() {
     }
 
 }
+
+
+//==============================================
+
 
