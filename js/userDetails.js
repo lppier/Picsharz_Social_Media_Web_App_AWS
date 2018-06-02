@@ -112,28 +112,29 @@ function getUserDetails() {
                     //document.getElementById("other_info").innerHTML += other_details_html;
                     
                     if(first_item["followers"]){
-                    for (var i=0; i< first_item["followers"].length; i++){
+                    for (var i=0; i< first_item["followers"]["L"].length; i++){
+                        console.log(i);
                         appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["followers"]["L"][i]["S"] + '">' + first_item["followers"]["L"][i]["S"] + '</a></li>';
-                        $("#fing").append(appender);
+                        $("#followers").append(appender);
                     }}
                     
                     if(first_item["following"]){
                     for (var i=0; i< first_item["following"]["L"].length; i++){
                         appender = '<li class="list-group-item"> <a href="./user_details.html?id='+ first_item["following"]["L"][i]["S"] + '">' + first_item["following"]["L"][i]["S"] + '</a></li>';
-                        $("#fers").append(appender);
+                        $("#followingList").append(appender);
                     }}
                     
                     if(first_item["likes"]){
                     for (var i=0; i< first_item["likes"]["L"].length; i++){
                         appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["likes"]["L"][i]["S"] + '">' + first_item["likes"]["L"][i]["S"] + '</a></li>';
-                        $("#lkrs").append(appender);
+                        $("#userLikes").append(appender);
                     }}
                     
-                    if(first_item["uploaded_images"]){
-                    for (var i=0; i< first_item["uploaded_images"]["L"].length; i++){
-                        appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["uploaded_images"]["L"][i]["S"] + '">' + first_item["uploaded_images"]["L"][i]["S"] + '</a></li>';
-                        $("#imgz").append(appender);
-                    }}
+                    // if(first_item["uploaded_images"]){
+                    // for (var i=0; i< first_item["uploaded_images"]["L"].length; i++){
+                    //     appender = '<li class="list-group-item"> <a href="./image_details.html?id='+ first_item["uploaded_images"]["L"][i]["S"] + '">' + first_item["uploaded_images"]["L"][i]["S"] + '</a></li>';
+                    //     $("#imgz").append(appender);
+                    // }}
                     
                    
                 }
