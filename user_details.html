@@ -24,17 +24,32 @@
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
     <script src="js/userDetails.js"></script>
+    <link rel="stylesheet" href="css/slider.css">
+    <script href="js/slider.js" defer></script>
 
 
 </head>
 
-<body id="page-top" onload="getUserDetails()">
+<body id="page-top" onload="getUserDetails()" style="background-color:#222">
 <header class="masthead bg-primary text-white text-center">
     <div id="profile" class="container">
         <img id="profilePic" class="img-fluid mb-5 d-block mx-auto img-thumbnail" src="img/mj.jpg" alt="" >
         <h1 class="text-uppercase mb-0" id="name"></h1>
         <hr class="star-light">
         <h2 class="font-weight-light mb-0" id="about"></h2>
+        <!--       -->
+        <div class="container" id="usersection">
+
+
+    <br><br>
+    <h4> About me: </h4>
+    <p id="country"></p>
+    <p id="dob"></p>
+    <p id="account_created_time"></p>
+ 
+</div>
+        
+        <!--       -->
         <hr class="star-light">
         <button id="followme" type="button" class="btn btn-xl btn-outline-light" onclick="followUnfollowUser()">FOLLOW
         </button>
@@ -67,6 +82,7 @@
 <section class="portfolio" id="portfolio">
     <div class="container">
         <!-- <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2> -->
+        
         <hr class="star-dark mb-5">
         <div class="row" id="row">
 
@@ -78,20 +94,117 @@
 </section>
 
 
-<div class="container" id="usersection">
 
-    <!--<h1 id="name"></h1>-->
+    
+    
+    <!-- --------------------------------------------------------------------------------- -->
+    
+   <div class="container">
+    <br />
+	<div class="row">
 
-    <p id="last_login_time"></p>
-    <h2> About: </h2>
-    <p id="country"></p>
-    <p id="dob"></p>
-    <!--<p id="about"></p>-->
-    <!--<p id="country"></p>-->
-    <p id="account_created_time"></p>
-    <p id="other_info"></p>
+        <div class="dual-list list-left col-md-3">
+            <div class="well text-right">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="Followers" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group fing" id="fing">
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <div class="dual-list list-left col-md-3">
+            <div class="well text-right">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="Following" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group" id="fers">
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <div class="dual-list list-left col-md-3">
+            <div class="well text-right">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="Likes" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group" id="lkrs">
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <div class="dual-list list-left col-md-3">
+            <div class="well text-right">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                            <input type="text" name="SearchDualList" class="form-control" placeholder="Images" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group" id="imgz">
+                   
+                </ul>
+            </div>
+        </div>
+
+	</div>
+</div>
+    
+    
+    
+    
+    
+    <!-- --------------------------------------------------------------------------------- -->
+
+    <div>
+    <div class="slider" id="slider">
+  
+  
+        <div class="slider__btn"></div>
 </div>
 
+    </div>
+    
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-to-top d-lg-none position-fixed ">
     <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
@@ -103,6 +216,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/slider.js"></script>
 
 <!-- Plugin JavaScript -->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
