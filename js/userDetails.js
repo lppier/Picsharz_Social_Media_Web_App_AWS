@@ -51,8 +51,9 @@ function getImageDetails(image_id) {
                         img_result_tags = first_item["tags"] ? first_item["tags"]["L"] : "";
                         img_result_time = first_item["time"] ? first_item["time"]["S"] : "";
                         img_result_like_by = first_item["like_by"] ? first_item["like_by"]["L"] : "";
+                        img_result_thumb = first_item["url_thumb"] ? first_item["url_thumb"]["S"] : ""; 
        
-                        $("#profilePic").attr("src", img_result_url_main);
+                        $("#profilePic").attr("src", img_result_thumb);
                     }
                 }
             }

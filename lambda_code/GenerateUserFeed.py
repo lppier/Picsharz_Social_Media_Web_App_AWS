@@ -1,7 +1,7 @@
 import boto3
 import json
 
-MAX_IMAGES = 20
+MAX_IMAGES = 100
 
 flatten = lambda l: [item for sublist in l for item in sublist]
 
