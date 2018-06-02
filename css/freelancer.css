@@ -378,3 +378,7 @@ a:focus, a:hover, a:active {
   background-color: #1a252f;
   border-color: #1a252f;
 }
+
+.centered-and-cropped { object-fit: cover;
+max-height: 214px;
+min-height: 214px;}
