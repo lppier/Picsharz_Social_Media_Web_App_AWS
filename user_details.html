@@ -31,26 +31,7 @@
 </head>
 
 <body id="page-top" onload="getUserDetails()" style="background-color:#222">
-<header class="masthead bg-primary text-white text-center">
-    <div id="profile" class="container">
-        <img id="profilePic" class="img-fluid mb-5 d-block mx-auto img-thumbnail" src="img/mj.jpg" alt="">
-        <h1 class="text-uppercase mb-0" id="name"></h1>
-        <hr class="star-light">
-        <h2 class="font-weight-light mb-0" id="about"></h2>
-        <!--       -->
-        <div class="container" id="usersection">
-            <br><br>
-            <h4> About me: </h4>
-            <p id="country"></p>
-            <p id="dob"></p>
-            <p id="account_created_time"></p>
-        </div>
-        <!--       -->
-        <hr class="star-light">
-        <button id="followme" type="button" class="btn btn-xl btn-outline-light" onclick="followUnfollowUser()">FOLLOW
-        </button>
-    </div>
-</header>
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
     <div class="container">
@@ -82,6 +63,27 @@
     </div>
 </nav>
 
+<header class="masthead bg-primary text-white text-center">
+    <div id="profile" class="container">
+        <img id="profilePic" class="img-fluid mb-5 d-block mx-auto img-thumbnail" src="img/mj.jpg" alt="">
+        <h1 class="text-uppercase mb-0" id="name"></h1>
+        <hr class="star-light">
+        <h2 class="font-weight-light mb-0" id="about"></h2>
+        <!--       -->
+        <div class="container" id="usersection">
+            <br><br>
+            <h4> About me: </h4>
+            <p id="country"></p>
+            <p id="dob"></p>
+            <p id="account_created_time"></p>
+        </div>
+        <!--       -->
+        <hr class="star-light">
+        <button id="followme" type="button" class="btn btn-xl btn-outline-light" onclick="followUnfollowUser()">FOLLOW
+        </button>
+    </div>
+</header>
+
 <!-- --------------------------------------------------------------------------------- -->
 <p></p>
 <div class="d-flex flex-row justify-content-center">
@@ -101,6 +103,9 @@
         <ul id="followingList" class="dropdown-menu">
         </ul>
     </div>
+
+</div>
+<div class="d-flex flex-row justify-content-center">
     <div class="p-2">
         <button id="imagesLikedBtn" class="btn btn-xl btn-outline-light dropdown-toggle" type="button"
                 data-toggle="dropdown">

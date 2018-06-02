@@ -41,7 +41,7 @@ function displayProfileId(userId) {
                 'Authorization': Accesstoken
             },
             success: function (data) {
-                $("#feedLoading").html("Your feed...")
+                $("#feedLoading").html("Your feed...");
                 //console.log(data);
                 feed_results = data;
                 // alert('Number of feed images: ' + feed_results.length);
@@ -58,8 +58,6 @@ function displayProfileId(userId) {
                     image_title = feed_image["title"];
                     appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
                     $("#slider").append(appender);
-                    //console.log("Success")
-
                 }
             },
             error: function (data) {
