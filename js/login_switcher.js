@@ -94,7 +94,7 @@ $(function () {
                             
                             image_html = '<div class="col-md-6 col-lg-4"><a class="portfolio-item d-block mx-auto" href="image_details.html?id=' + image_id + '"><div class="portfolio-item-caption d-flex position-absolute h-100 w-100"><div class="portfolio-item-caption-content my-auto w-100 text-center text-white">' + image_title + '</div></div><img class="img-fluid centered-and-cropped" src="' + image_url_thumb + '" alt="" height="214" width="296"></a></div>';
                             
-                            
+                        
                             
                             //console.log(image_html);
                             

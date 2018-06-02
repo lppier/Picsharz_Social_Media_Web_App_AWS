@@ -381,4 +381,5 @@ a:focus, a:hover, a:active {
 
 .centered-and-cropped { object-fit: cover;
 max-height: 214px;
-min-height: 214px;}
+min-height: 214px;
+min-width: 296px}
