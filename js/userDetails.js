@@ -98,6 +98,10 @@ function getUserDetails() {
                         getImageDetails(first_uploaded_image_id);
                     }
                     
+                    // show the user's uploaded images
+                    displayUserUploadedImages(user_id);
+
+
                     document.getElementById("name").innerHTML = user_result_username;
                     document.getElementById("about").innerHTML = user_result_about;
                     document.getElementById("country").innerHTML = user_result_country;
@@ -138,6 +142,42 @@ function getUserDetails() {
         }
 
     });
+}
+
+function displayUserUploadedImages(userId) {
+    if (userId) {
+        var Accesstoken = sessionStorage.getItem('AccessToken');
+        request_url = "https://vjbj3fv2sc.execute-api.us-east-1.amazonaws.com/PicssharzProd/feed/" + userId;
+
+        $.ajax({
+            url: request_url,
+            type: 'GET',
+            headers: {
+                'Authorization': Accesstoken
+            },
+            success: function (data) {
+                console.log("Feed data");
+                console.log(data);
+                feed_results = data;
+
+                for (var i = 0; i < feed_results.length; i++) {
+                    feed_image = feed_results[i];
+
+                    // if the image is uploaded by the current user then append to the image viewer
+                    if (feed_image["upload_user"] == userId) {
+                        image_url_thumb = feed_image["url_thumb"];
+                        image_title = feed_image["title"];
+                        appender = '<figure class="slider__item"><img class="slider__image" src="' + image_url_thumb + '"/><figcaption class="slider__caption">' + image_title + '</figcaption></figure>';
+                        $("#slider").append(appender);
+                    }
+                }
+            },
+            error: function (data) {
+                alert('An error occurred while fetching the feed. Please try again.');
+                //console.log(data);
+            }
+        });
+    }
 }
 
 function followUnfollowUser() {
