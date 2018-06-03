@@ -119,11 +119,28 @@ function getImageDetails() {
                                 for(var i=0;i<first_item["tags"]["L"].length;i++)
                                     {
                                         appender = '<div style="padding: 5px; display: inline-block;"><span class="label label-primary">' + first_item["tags"]["L"][i]["S"] + '</div></span>';
-                                        //console.log(first_item["tags"]["L"][i]["S"]);
+                                        console.log(first_item);
                                         document.getElementById("imginfo").innerHTML += appender;
                                     }
                                 
                             }
+                        
+                        //--------------------------------------------------
+                        
+                        document.getElementById("likeby").innerHTML = "<h2>Liked By:</h2>";
+                        
+                        if(first_item["like_by"])
+                            {
+                                //console.log(first_item["tags"]["L"].length);
+                                for(var i=0;i<first_item["like_by"]["L"].length;i++)
+                                    {
+                                        appender = '<div style="padding: 5px; display: inline-block;"><a class="userlink" style:"color: white" href="user_details.html?id=' + first_item["like_by"]["L"][i]["S"] + '"><span class="label label-primary">' + first_item["like_by"]["L"][i]["S"] + '</div></span></a>';
+                                        //console.log(first_item["tags"]["L"][i]["S"]);
+                                        document.getElementById("likeby").innerHTML += appender;
+                                    }
+                                
+                            }
+                       
                         
                         //-------------
                         var Accesstoken = sessionStorage.getItem('AccessToken');
