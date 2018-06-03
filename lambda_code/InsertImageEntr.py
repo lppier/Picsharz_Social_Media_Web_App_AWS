@@ -3,11 +3,26 @@ import uuid
 import datetime
 import time
 
+from botocore.exceptions import ClientError
+
 rekognition = boto3.client('rekognition')
 client = boto3.client('sns')
 
 main_images_bucket_name = "team30ws-mediarepofinal"
 resized_images_bucket_name = "team30ws-mediarepofinalresized"
+
+# The sender for the email
+SENDER = "picsharz@gmail.com"
+#Moderator email
+MODERATOR_EMAIL = "tsan.yeesoon@u.nus.edu"
+# The AWS region
+AWS_REGION = "us-east-1"
+# The subject line for the email.
+SUBJECT = "Warning! An Unsafe Image Was Uploaded! Take Action NOW and earn your Moderator pay!"
+# The character encoding for the email.
+CHARSET = "UTF-8"
+# The email body for recipients with non-HTML email clients.
+BODY_TEXT = "Alert: Userid {0} uploaded an Unsafe Image! The image is "
 
 # seconds after which the URL will expire - set to 1 week
 url_expires_in = 604799
@@ -55,18 +70,20 @@ def lambda_handler(event, context):
     if response_unsafe["ModerationLabels"]:
         print(response_unsafe)
 
-        tosend1 = "Alert: Userid {0} uploaded an Unsafe Image! The image is ".format(event['userid'])
+        tosend1 = BODY_TEXT.format(event['userid'])
         for Label in response_unsafe["ModerationLabels"]:
             # print('{0} - {1}%'.format(Label["Name"], Label["Confidence"]))
             tosend2 = ' {0} - {1:.2f}% - {2}'.format(Label["ParentName"], Label["Confidence"], Label["Name"])
 
         tosend = tosend1 + tosend2
         # Send Email/trigger SNS
-        messagesns = client.publish(
-            TargetArn='arn:aws:sns:us-east-1:528416560993:image-reko-sns',
-            Message=tosend,
-            Subject='Warning! An Unsafe Image Was Uploaded! Take Action NOW and earn your Moderator pay!',
-        )
+        # messagesns = client.publish(
+        #     TargetArn='arn:aws:sns:us-east-1:528416560993:image-reko-sns',
+        #     Message=tosend,
+        #     Subject='Warning! An Unsafe Image Was Uploaded! Take Action NOW and earn your Moderator pay!',
+        # )
+
+        send_email_to_moderator(MODERATOR_EMAIL,SUBJECT,tosend)
         # Print response to console.
         print(response_unsafe)
 
@@ -77,6 +94,12 @@ def lambda_handler(event, context):
         for Label in response_unsafe["ModerationLabels"]:
             unsafe_flag = Label["ParentName"]
             unsafe_name = Label["Name"]
+
+        if unsafe_flag == "":
+            unsafe_flag = "NA"
+
+        if unsafe_name == "":
+            unsafe_name = "NA"
 
         dynamo_table.put_item(Item={"id": image_id, "description": event['description'], "unsafe_image": unsafe_flag,
                                     "unsafe_name": unsafe_name,
@@ -132,3 +155,40 @@ def detectmoderationlabels(bucket, key):
     response2 = rekognition.detect_moderation_labels(Image={"S3Object": {"Bucket": bucket, "Name": key}},
                                                      MinConfidence=90)
     return response2
+
+def send_email_to_moderator(moderator_email, subject, body):
+    """
+        Send email to the followee with the followee email ID
+    """
+    # Create a new SES resource and specify a region.
+    client = boto3.client('ses',region_name=AWS_REGION)
+
+    # Try to send the email.
+    try:
+        #Provide the contents of the email.
+        response = client.send_email(
+            Destination={
+                'ToAddresses': [
+                    moderator_email,
+                ],
+            },
+            Message={
+                'Body': {
+                    'Text': {
+                        'Charset': CHARSET,
+                        'Data': body,
+                    },
+                },
+                'Subject': {
+                    'Charset': CHARSET,
+                    'Data': subject,
+                },
+            },
+            Source=SENDER
+        )
+    # Display an error if something goes wrong.
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId'])
