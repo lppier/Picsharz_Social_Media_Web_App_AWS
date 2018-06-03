@@ -119,7 +119,7 @@ function getImageDetails() {
                                 for(var i=0;i<first_item["tags"]["L"].length;i++)
                                     {
                                         appender = '<div style="padding: 5px; display: inline-block;"><span class="label label-primary">' + first_item["tags"]["L"][i]["S"] + '</div></span>';
-                                        console.log(first_item);
+                                        //console.log(first_item);
                                         document.getElementById("imginfo").innerHTML += appender;
                                     }
                                 
@@ -134,12 +134,15 @@ function getImageDetails() {
                                 //console.log(first_item["tags"]["L"].length);
                                 for(var i=0;i<first_item["like_by"]["L"].length;i++)
                                     {
-                                        appender = '<div style="padding: 5px; display: inline-block;"><a class="userlink" style:"color: white" href="user_details.html?id=' + first_item["like_by"]["L"][i]["S"] + '"><span class="label label-primary">' + first_item["like_by"]["L"][i]["S"] + '</div></span></a>';
+                                        appender = '<div style="padding: 5px; display: inline-block;"><span class="label label-primary clikker" onclick=postdata(this) >' + first_item["like_by"]["L"][i]["S"] + '</div></span>';
                                         //console.log(first_item["tags"]["L"][i]["S"]);
                                         document.getElementById("likeby").innerHTML += appender;
                                     }
                                 
                             }
+                        
+                        
+                       
                        
                         
                         //-------------
@@ -154,8 +157,8 @@ function getImageDetails() {
                 'Authorization': Accesstoken
             },
             success: function (data) {
-                console.log("Feed data");
-                console.log(data);
+                //console.log("Feed data");
+                //console.log(data);
                 feed_results = data;
 
                 for (var i = 0; i < feed_results.length; i++) {
@@ -241,7 +244,7 @@ function likeUnlikeButtonClick() {
         sessionResult = JSON.parse(sessionResult)
         //console.log(sessionResult)
         likesList = sessionResult["likes"]
-        console.log(likesList)
+        //console.log(likesList)
         if (likesList.includes(image_id)) {
             //console.log("image id in list")
             document.getElementById("liker").innerHTML = 'Unlike';
@@ -260,4 +263,9 @@ function likeUnlikeButtonClick() {
 
 //==============================================
 
+function postdata(link) {
+    
+    data = $(link).html();
+    window.location.replace("user_details.html?id=" + data);
+}
 
