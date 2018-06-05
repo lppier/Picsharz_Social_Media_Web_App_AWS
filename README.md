@@ -1,5 +1,5 @@
 # Picsharz_CodeDeploy
-Code committed to this repository will automatically be deployed onto the production Picsharz server. 
+Code committed to this repository will automatically be deployed onto the production Picsharz server using Github -> AWS CodeDeploy -> Deployment Groups infrastructure.
 
 PicSharz - a social photo sharing app with a cloud native architecture powered by AWS
 
