@@ -11,6 +11,13 @@ Picsharz is also accompanied by useful aggregate analytics on the usage patterns
 
 We have developed a serverless cloud-native application to compete with the best photo sharing apps that are available. 
 
+# Team Members
+Anurag Chatterjee
+Bhujbal Vaibhav Shivaji
+Lim Pier
+Pratyush Mishra
+Tsan Yee Soon
+
 Project Report and application screenshots: https://drive.google.com/drive/folders/1nTzutMjoU9xIc6rTwSsioBgx__VtZRPe?usp=sharing
 
 
