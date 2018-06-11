@@ -19,7 +19,7 @@ We have developed a serverless cloud-native application to compete with the best
 * Tsan Yee Soon
 
 
-Project Report and application screenshots: https://drive.google.com/drive/folders/1nTzutMjoU9xIc6rTwSsioBgx__VtZRPe?usp=sharing
+Project Report Here : https://github.com/lppier/Picsharz_CodeDeploy/blob/master/Project-Report-PicSharz-SocialPhotoSharingAppAWS.pdf
 
 
 Documentation to link Github to CodeDeploy
