@@ -9,7 +9,7 @@ The application heavily leverages the Platform as a Service (PaaS) offerings of 
 
 Picsharz is also accompanied by useful aggregate analytics on the usage patterns that can be efficiently viewed by the administrators of the application using interactive visualisations. Finally, the development of the app was streamlined using code deploy such that any changes that were committed to source control would immediately reflect on the website hosted on EC2 automatically.
 
-We have developed a serverless cloud-native application to compete with the best photo sharing apps that are available. 
+We have developed a serverless cloud-native application that made use of DevOps (Continuous Deployment) for development.  
 
 # Team Members
 * Anurag Chatterjee
